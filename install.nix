@@ -1,3 +1,7 @@
+#!/usr/bin/env nix-shell
+#!nix-shell install.nix --run install-silence-systemd-unit
+
+
 { pkgs ? import <nixpkgs> {} }:
 
 let
@@ -20,10 +24,7 @@ let
     '';
   };
 
-  install-systemd-unit = pkgs.writeShellScriptBin "install-systemd-unit" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash
-
+  install-silence-systemd-unit = pkgs.writeShellScriptBin "install-silence-systemd-unit" ''
     service="silence.service"
     systemctl --user disable --now $service || echo "$service is already disabled"
     systemctl --user enable --now "${sdunit}/$service"
@@ -33,6 +34,6 @@ let
 
 in pkgs.mkShell {
   buildInputs = [
-    install-systemd-unit
+    install-silence-systemd-unit
   ];
 }
