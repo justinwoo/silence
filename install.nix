@@ -5,7 +5,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  cmd = "${pkgs.sox}/bin/play ${./silence.mp3}";
+  cmd = "${pkgs.sox}/bin/play ${./silence.mp3} repeat -";
 
   sdunit = pkgs.writeTextFile {
     name = "silence";
